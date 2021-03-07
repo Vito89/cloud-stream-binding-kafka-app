@@ -1,0 +1,13 @@
+*.class
+
+*.war
+*.ear
+.gradle
+build
+*.iml
+.idea
+*.idea
+out
+target
+!src/**/build
+.attach_pid*
