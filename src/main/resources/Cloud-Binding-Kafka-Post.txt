@@ -1,55 +1,63 @@
-Introduction to Spring Cloud Stream Binding Kafka with context JUnit testing
+Introduction to Spring Cloud Stream Binding Kafka with JUnit testing using Embedded Kafka
 1. Overview
 Spring Cloud Stream is a framework built on top of Spring Boot and Spring Integration that helps in creating event-driven or message-driven microservices.
-Spring Cloud Stream provides multiple binder implementations such as Kafka, RabbitMQ and others.
+It provides multiple binder implementations such as Kafka, RabbitMQ and others.
 
-In this article, we'll introduce concepts and constructs of Spring Cloud Stream with some simple examples.
-
-This post is a step-by-step tutorial on building a simple microservice application based on Spring Boot and uses Spring Cloud Stream to connect with a Kafka instance.
+In this article, we'll introduce main concepts and constructs of Spring Cloud Stream with some simple test-examples based on EmbeddedKafkaRule with using MessageCollector.
 
 2. Getting Started
 2.1 Dependencies & Configuration
-< input code dependencies build.gradle>
-The Spring Cloud Stream project needs to be configured with the Kafka broker URL, topic, and other binder configurations. Below is an example of configuration for the application.
+To get started, we'll need to add the Spring Cloud Starter Stream with the Kafka broker Gradle dependency to our build.gradle:
+<input code dependencies build.gradle>
+The Spring Cloud Stream project needs to be configured with the Kafka broker URL, topic and other binder configurations. Below is an example of configuration for the application:
 <input code config yaml>
-2.2. Produce-Consume // TODO
+2.2. Constructs //TODO copypasted
+Let's look at a simple service in Spring Cloud Stream that listens to input binding and sends a response to the output binding:
+<input @SpringBootApplication>
+The annotation @EnableBinding configures the application to bind the channels INPUT and OUTPUT defined within the interface Processor. Both channels are bindings that can be configured to use a concrete messaging-middleware or binder.
+
+Let's take a look at the definition of all these concepts: //TODO copypasted
+Bindings — a collection of interfaces that identify the input and output channels declaratively
+Binder — messaging-middleware implementation such as Kafka or RabbitMQ
+Channel — represents the communication pipe between messaging-middleware and the application
+StreamListeners — message-handling methods in beans that will be automatically invoked on a message from the channel after the MessageConverter does the serialization/deserialization between middleware-specific events and domain object types / POJOs
+Message Schemas — used for serialization and deserialization of messages, these schemas can be statically read from a location or loaded dynamically, supporting the evolution of domain object types
+
 We will need at least one producer and a consumer to test the message and send and receive operations. Below is the sample code for a producer and consumer in its simplest form, developed using Spring Cloud Stream.
 2.3. Producer
-There is a producer bean that will send messages to a Kafka topic. 
-< input code Producer.class>
+There is a producer bean that will send messages to a Kafka topic
+<input code Producer.class>
 2.4. Consumer
-A consumer bean will listen to a Kafka topic and receive messages.
-< input code Consumer.class>
+A consumer bean will listen to a Kafka topic and receive messages
+<input code Consumer.class>
 2.5. Produce-Consume finalaze
 --Завершение Producer-Consumer + переход к EmbeddedKafkaRule настройке--
 A Kafka broker with a topic is created. For this test, we will use an Embedded Kafka server with 
-spring-kafka-test.  
+spring-kafka-test
 
-4. EmbeddedKafkaRule
+3. EmbeddedKafkaRule  //TODO copypasted
 Spring- kafka -test provides an embedded Kafka broker. We can use a Junit “@ClassRule” annotation to create this Kafka broker. This rule starts the Kafka and Zookeeper servers on a random port before the tests execute and shuts them down after the tests complete. The embedded Kafka broker eliminates the need to have a real Kafka and zookeeper instance running while running the test.
 
-5. Functional Testing: ProducerBindingTest using MessageCollector
-This is a DSL library which provides very nice features to help writing nice JUnit tests for an asynchronous java application. You can check their official github page here. Below is an implementation of the test using Awaitility.
-< input code ProducerBindingTest.kt>
+4. Functional Testing: ProducerTest using MessageCollector //TODO
+<input code ProducerBindingTest.kt>
 
-6. Testing using embedded kafka ConsumerTest
-This is a DSL library which provides very nice features to help writing nice JUnit tests for an asynchronous java application. You can check their official github page here. Below is an implementation of the test using Awaitility.
-< input code ConsumerTest.kt>
+5. Testing using embedded kafka ConsumerTest //TODO
+<input code ConsumerTest.kt>
 
-7. Conclusion
+6. Conclusion
 In this tutorial, we presented the main concepts of Spring Cloud Stream and showed how to use it through some simple examples.
 The source code for this article can be found over on GitHub.
-You can find the complete source code here.
+You can find the complete source code here
+<input myOpenGitHub Link>
 
 *************************
-BinderCloudKafka_Post URIs
-https://medium.com/@njns08/test-spring-boot-applications-using-embeddedkafka-and-awaitility-875aaecde5d0
 https://www.baeldung.com/spring-cloud-stream
-https://habr.com/ru/post/350454/
 https://cloud.spring.io/spring-cloud-stream-binder-kafka/spring-cloud-stream-binder-kafka.html#_apache_kafka_binder
-https://medium.com/@kirill.sereda/spring-cloud-stream-по-русски-570568977e3f
+
+https://medium.com/@kirill.sereda/spring-cloud-stream-по-русски-570568977e3f 
+https://habr.com/ru/post/350454/
+
+Nakul Shukla:
 https://dzone.com/articles/kafka-with-spring-cloud-stream
-*************************
-
-
+https://medium.com/@njns08/test-spring-boot-applications-using-embeddedkafka-and-awaitility-875aaecde5d0
 
