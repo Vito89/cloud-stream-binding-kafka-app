@@ -11,14 +11,14 @@ To get started, we'll need to add the Spring Cloud Starter Stream with the Kafka
 <input code dependencies build.gradle>
 The Spring Cloud Stream project needs to be configured with the Kafka broker URL, topic and other binder configurations. Below is an example of configuration for the application:
 <input code config yaml>
-2.2. Constructs //TODO copypasted
-Let's look at a simple service in Spring Cloud Stream that listens to input binding and sends a response to the output binding:
+2.2. Constructs
+This is a simple Spring Cloud Stream based service that listens to input binding:
 <input @SpringBootApplication>
-The annotation @EnableBinding configures the application to bind the channels INPUT and OUTPUT defined within the interface Processor. Both channels are bindings that can be configured to use a concrete messaging-middleware or binder.
+The annotation @EnableBinding configures the service to bind INPUT and OUTPUT channels.
 
-Let's take a look at the definition of all these concepts: //TODO copypasted
+Main concepts:
 Bindings — a collection of interfaces that identify the input and output channels declaratively
-Binder — messaging-middleware implementation such as Kafka or RabbitMQ
+Binder — messaging-middleware implementation such as Kafka or another
 Channel — represents the communication pipe between messaging-middleware and the application
 StreamListeners — message-handling methods in beans that will be automatically invoked on a message from the channel after the MessageConverter does the serialization/deserialization between middleware-specific events and domain object types / POJOs
 Message Schemas — used for serialization and deserialization of messages, these schemas can be statically read from a location or loaded dynamically, supporting the evolution of domain object types
@@ -31,23 +31,25 @@ There is a producer bean that will send messages to a Kafka topic
 A consumer bean will listen to a Kafka topic and receive messages
 <input code Consumer.class>
 2.5. Produce-Consume finalaze
---Завершение Producer-Consumer + переход к EmbeddedKafkaRule настройке--
 A Kafka broker with a topic is created. For this test, we will use an Embedded Kafka server with 
 spring-kafka-test
 
-3. EmbeddedKafkaRule  //TODO copypasted
-Spring- kafka -test provides an embedded Kafka broker. We can use a Junit “@ClassRule” annotation to create this Kafka broker. This rule starts the Kafka and Zookeeper servers on a random port before the tests execute and shuts them down after the tests complete. The embedded Kafka broker eliminates the need to have a real Kafka and zookeeper instance running while running the test.
+3. Functional Testing using MessageCollector
+We send a message to the serviceB and check handle of it on mock serviceA methodA: //TODO add
+This is a binder implementation that allows interact with channels and handle the messages.
+<input code ProducerTest.kt>
 
-4. Functional Testing: ProducerTest using MessageCollector //TODO
-<input code ProducerBindingTest.kt>
-
-5. Testing using embedded kafka ConsumerTest //TODO
+4. Embedded Kafka broker testing
+4.1. EmbeddedKafkaRule
+We use @ClassRule annotation to create this Kafka broker.
+The rule starts the Kafka and Zookeeper servers on a random port before start the tests and shuts them down after complete. Embedded Kafka broker eliminates the need to have a real instance of Kafka and zookeeper while the test is running.
 <input code ConsumerTest.kt>
 
-6. Conclusion
-In this tutorial, we presented the main concepts of Spring Cloud Stream and showed how to use it through some simple examples.
-The source code for this article can be found over on GitHub.
-You can find the complete source code here
+5. Conclusion
+In this tutorial demonstreted concepts of Spring Cloud Stream and showed how to use it with Kafka.
+Also JUnit testing based on EmbeddedKafkaRule with using MessageCollector.
+
+You can find the complete source code here:
 <input myOpenGitHub Link>
 
 *************************

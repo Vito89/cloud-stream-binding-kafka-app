@@ -8,11 +8,12 @@ My scheme:
 2.4. Consumer
 2.5. Produce-Consume finalaze
 
-3. EmbeddedKafkaRule
-4. Functional Testing: ProducerBindingTest using MessageCollector
-5. Testing using embedded kafka ConsumerTest
+3. Functional Testing: ProducerBindingTest using MessageCollector
 
-6. Conclusion
+4. Embedded Kafka broker testing
+4.1. EmbeddedKafkaRule
+
+5. Conclusion
 
 ---------------
 Baeldung scheme:
