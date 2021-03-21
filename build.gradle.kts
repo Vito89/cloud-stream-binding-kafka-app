@@ -3,10 +3,11 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotlinCoroutinesVersion: String by project
 val springBootVersion: String by project
 val springCloudVersion: String by project
+val springKafkaTestVersion: String by project
 val testContainersVersion: String by project
-val kotlinCoroutinesVersion: String by project
 
 plugins {
     val kotlinVersion = "1.3.72"
@@ -45,7 +46,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")
-    testImplementation("org.springframework.kafka:spring-kafka-test:2.6.5")
+    testImplementation("org.springframework.kafka:spring-kafka-test:$springKafkaTestVersion")
 }
 
 group = "com.vito.spring.examples.kafka.streams"
