@@ -1,6 +1,7 @@
 package com.vito.spring.examples.kafka.streams.producer
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -8,7 +9,7 @@ import org.springframework.cloud.stream.test.binder.MessageCollector
 import org.springframework.messaging.support.MessageBuilder
 
 @SpringBootTest
-class ProducerBindingTest {
+class ProducerTest {
 
     @Autowired
     lateinit var producerBinding: ProducerBinding
@@ -29,9 +30,9 @@ class ProducerBindingTest {
 
         // ASSERT
         val payloadAsMap = jacksonObjectMapper().readValue(payload.toString(), Map::class.java)
-        request.entries.stream().allMatch { re ->
+        assertTrue(request.entries.stream().allMatch { re ->
             re.value == payloadAsMap[re.key.toString()]
-        }
+        })
 
         messageCollector.forChannel(producerBinding.messageChannel()).clear()
     }
