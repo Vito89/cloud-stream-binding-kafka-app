@@ -1,53 +1,55 @@
-1. --Overview-- --Spring Cloud Stream Binding Kafka with context Junit testing--
+Introduction to Spring Cloud Stream Binding Kafka with context JUnit testing
+1. Overview
 Spring Cloud Stream is a framework built on top of Spring Boot and Spring Integration that helps in creating event-driven or message-driven microservices.
+Spring Cloud Stream provides multiple binder implementations such as Kafka, RabbitMQ and others.
 
 In this article, we'll introduce concepts and constructs of Spring Cloud Stream with some simple examples.
-*
-This post gives a step-by-step tutorial to enable messaging in a microservice using Kafka with Spring Cloud Stream.
 
-// You may also like: Event-Driven Microservices Using Spring Cloud Stream and RabbitMQ.
-Spring Cloud Stream is a framework built on top of Spring Integration. It integrates with Spring Boot seamlessly to build efficient microservices in less time to connect with shared messaging systems. Spring Cloud Stream provides multiple binder implementations such as Kafka, RabbitMQ and various others. The details are provided here.
+This post is a step-by-step tutorial on building a simple microservice application based on Spring Boot and uses Spring Cloud Stream to connect with a Kafka instance.
 
-Here is a step-by-step tutorial on building a simple microservice application based on Spring Boot and uses Spring Cloud Stream to connect with a Kafka instance.
-
-2. --Getting Started: Dependencies--
-< input code build.gradle>
+2. Getting Started
+2.1 Dependencies & Configuration
+< input code dependencies build.gradle>
 The Spring Cloud Stream project needs to be configured with the Kafka broker URL, topic, and other binder configurations. Below is an example of configuration for the application.
-<input code конфигурация yaml>
-
-3.--Producer-Consumer-- // TODO
-
+<input code config yaml>
+2.2. Produce-Consume // TODO
 We will need at least one producer and a consumer to test the message and send and receive operations. Below is the sample code for a producer and consumer in its simplest form, developed using Spring Cloud Stream.
-
+2.3. Producer
 There is a producer bean that will send messages to a Kafka topic. 
 < input code Producer.class>
-
+2.4. Consumer
 A consumer bean will listen to a Kafka topic and receive messages.
 < input code Consumer.class>
+2.5. Produce-Consume finalaze
+--Завершение Producer-Consumer + переход к EmbeddedKafkaRule настройке--
+A Kafka broker with a topic is created. For this test, we will use an Embedded Kafka server with 
+spring-kafka-test.  
 
---Завершение Producer-Consumer + переход к EmbeddedKafka настройке--
-A Kafka broker with a topic is created. For this test, we will use an Embedded Kafka server with  spring-kafka-test.  
-
-4.--EmbeddedKafkaRule--
+4. EmbeddedKafkaRule
 Spring- kafka -test provides an embedded Kafka broker. We can use a Junit “@ClassRule” annotation to create this Kafka broker. This rule starts the Kafka and Zookeeper servers on a random port before the tests execute and shuts them down after the tests complete. The embedded Kafka broker eliminates the need to have a real Kafka and zookeeper instance running while running the test.
 
-Coming back to the tests, I have implemented this test in two ways, using Awaitility and using a countdown latch.
-
-5.--Functional Testing: ProducerBindingTest using MessageCollector--
+5. Functional Testing: ProducerBindingTest using MessageCollector
 This is a DSL library which provides very nice features to help writing nice JUnit tests for an asynchronous java application. You can check their official github page here. Below is an implementation of the test using Awaitility.
 < input code ProducerBindingTest.kt>
 
-6.--Testing using embedded kafka ConsumerTest--
+6. Testing using embedded kafka ConsumerTest
 This is a DSL library which provides very nice features to help writing nice JUnit tests for an asynchronous java application. You can check their official github page here. Below is an implementation of the test using Awaitility.
 < input code ConsumerTest.kt>
 
-7.--Conclusion--
+7. Conclusion
 In this tutorial, we presented the main concepts of Spring Cloud Stream and showed how to use it through some simple examples.
 The source code for this article can be found over on GitHub.
 You can find the complete source code here.
 
-
-
+*************************
+BinderCloudKafka_Post URIs
+https://medium.com/@njns08/test-spring-boot-applications-using-embeddedkafka-and-awaitility-875aaecde5d0
+https://www.baeldung.com/spring-cloud-stream
+https://habr.com/ru/post/350454/
+https://cloud.spring.io/spring-cloud-stream-binder-kafka/spring-cloud-stream-binder-kafka.html#_apache_kafka_binder
+https://medium.com/@kirill.sereda/spring-cloud-stream-по-русски-570568977e3f
+https://dzone.com/articles/kafka-with-spring-cloud-stream
+*************************
 
 
 
