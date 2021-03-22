@@ -16,12 +16,12 @@ This is a simple Spring Cloud Stream based service that listens to input binding
 <input @SpringBootApplication>
 The annotation @EnableBinding configures the service to bind INPUT and OUTPUT channels.
 
-Main concepts:
-Bindings — a collection of interfaces that identify the input and output channels declaratively
-Binder — messaging-middleware implementation such as Kafka or another
-Channel — represents the communication pipe between messaging-middleware and the application
-StreamListeners — message-handling methods in beans that will be automatically invoked on a message from the channel after the MessageConverter does the serialization/deserialization between middleware-specific events and domain object types / POJOs
-Message Schemas — used for serialization and deserialization of messages, these schemas can be statically read from a location or loaded dynamically, supporting the evolution of domain object types
+Let's see the main concepts:
+Bindings: collection of interfaces that identify the input and output channels declaratively
+Binder: messaging middleware implementation such as Kafka or another
+Channel: represents the communication pipe between messaging middleware and the application
+StreamListeners: message-handling methods in beans that will be automatically invoked on a message from the channel after the MessageConverter does the serialization or deserialization between middleware specific events and domain object types or "POJO"
+Message Schemas — used for serialization and deserialization of messages, these schemas can be statically read from a location or loaded dynamically
 
 We will need at least one producer and a consumer to test the message and send and receive operations. Below is the sample code for a producer and consumer in its simplest form, developed using Spring Cloud Stream.
 2.3. Producer
@@ -35,8 +35,8 @@ A Kafka broker with a topic is created. For this test, we will use an Embedded K
 spring-kafka-test
 
 3. Functional Testing using MessageCollector
-We send a message to the serviceB and check handle of it on mock serviceA methodA: //TODO add
-This is a binder implementation that allows interact with channels and handle the messages.
+This is a binder implementation that allows interact with channels and receive the messages.
+We send a message to producer binding message channel and then receive it as payload.
 <input code ProducerTest.kt>
 
 4. Embedded Kafka broker testing
