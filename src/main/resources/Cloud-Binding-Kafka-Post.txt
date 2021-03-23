@@ -1,7 +1,7 @@
-Introduction to Spring Cloud Stream Binding Kafka with JUnit testing using Embedded Kafka
+Introduction to Spring Cloud Stream Binding Kafka with EmbeddedKafkaRule using in JUnit tests
 1. Overview
 Spring Cloud Stream is a framework built on top of Spring Boot and Spring Integration that helps in creating event-driven or message-driven microservices.
-It provides multiple binder implementations such as Kafka, RabbitMQ and others.
+It provides multiple binder implementations such as Kafka and others.
 
 In this article, we'll introduce main concepts and constructs of Spring Cloud Stream with some simple test-examples based on EmbeddedKafkaRule with using MessageCollector.
 
@@ -9,40 +9,40 @@ In this article, we'll introduce main concepts and constructs of Spring Cloud St
 2.1 Dependencies & Configuration
 To get started, we'll need to add the Spring Cloud Starter Stream with the Kafka broker Gradle dependency to our build.gradle:
 <input code dependencies build.gradle>
-The Spring Cloud Stream project needs to be configured with the Kafka broker URL, topic and other binder configurations. Below is an example of configuration for the application:
+The Spring Cloud Stream project needs to be configured with the Kafka broker URL, topic and other binder configurations. Below is an example of configuration for the application application.yaml:
 <input code config yaml>
 2.2. Constructs
-This is a simple Spring Cloud Stream based service that listens to input binding:
+This is a simple Spring Cloud Stream based service that listens to input binding (SpringCloudStreamBindingKafkaApp.kt):
 <input @SpringBootApplication>
 The annotation @EnableBinding configures the service to bind INPUT and OUTPUT channels.
 
-Let's see the main concepts:
+Now let's see the main concepts:
 Bindings: collection of interfaces that identify the input and output channels declaratively
 Binder: messaging middleware implementation such as Kafka or another
 Channel: represents the communication pipe between messaging middleware and the application
 StreamListeners: message-handling methods in beans that will be automatically invoked on a message from the channel after the MessageConverter does the serialization or deserialization between middleware specific events and domain object types or "POJO"
-Message Schemas — used for serialization and deserialization of messages, these schemas can be statically read from a location or loaded dynamically
+Message Schemas: used for serialization and deserialization of messages, these schemas can be statically read from a location or loaded dynamically
 
 We will need at least one producer and a consumer to test the message and send and receive operations. Below is the sample code for a producer and consumer in its simplest form, developed using Spring Cloud Stream.
 2.3. Producer
-There is a producer bean that will send messages to a Kafka topic
+There is a producer bean that will send messages to a Kafka topic (ProducerBinding.kt):
 <input code Producer.class>
 2.4. Consumer
-A consumer bean will listen to a Kafka topic and receive messages
+A consumer bean will listen to a Kafka topic and receive messages (ConsumerBinding.kt):
+<input code ConsumerBinding.class>
+(Consumer.kt):
 <input code Consumer.class>
-2.5. Produce-Consume finalaze
-A Kafka broker with a topic is created. For this test, we will use an Embedded Kafka server with 
-spring-kafka-test
+(2.5.) Produce-Consume finalaze
+A Kafka broker with a topic is created. For this test, we will use an Embedded Kafka server with spring-kafka-test
 
 3. Functional Testing using MessageCollector
 This is a binder implementation that allows interact with channels and receive the messages.
-We send a message to producer binding message channel and then receive it as payload.
+We send a message to producer binding message channel and then receive it as payload (ProducerTest.kt):
 <input code ProducerTest.kt>
-
+	
 4. Embedded Kafka broker testing
-4.1. EmbeddedKafkaRule
 We use @ClassRule annotation to create this Kafka broker.
-The rule starts the Kafka and Zookeeper servers on a random port before start the tests and shuts them down after complete. Embedded Kafka broker eliminates the need to have a real instance of Kafka and zookeeper while the test is running.
+The rule starts the Kafka and Zookeeper servers on a random port before start the tests and shuts them down after complete. Embedded Kafka broker eliminates the need to have a real instance of Kafka and zookeeper while the test is running (ConsumerTest.kt)
 <input code ConsumerTest.kt>
 
 5. Conclusion
