@@ -14,7 +14,7 @@ The Spring Cloud Stream project needs to be configured with the Kafka broker URL
 2.2. Constructs
 This is a simple Spring Cloud Stream based service that listens to input binding (SpringCloudStreamBindingKafkaApp.kt):
 <input @SpringBootApplication>
-The annotation @EnableBinding configures the service to bind INPUT and OUTPUT channels.
+The annotation @EnableBinding configures the service to bind input and output channels.
 
 Now let's see the main concepts:
 Bindings: collection of interfaces that identify the input and output channels declaratively
@@ -42,15 +42,15 @@ We send a message to producer binding message channel and then receive it as pay
 	
 4. Embedded Kafka broker testing
 We use @ClassRule annotation to create this Kafka broker.
-The rule starts the Kafka and Zookeeper servers on a random port before start the tests and shuts them down after complete. Embedded Kafka broker eliminates the need to have a real instance of Kafka and zookeeper while the test is running (ConsumerTest.kt)
+The rule starts the Kafka and Zookeeper servers on a random port before start the tests and shuts them down after complete. Embedded Kafka broker eliminates the need to have a real instance of Kafka and zookeeper while the test is running (ConsumerTest.kt):
 <input code ConsumerTest.kt>
 
 5. Conclusion
 In this tutorial demonstreted concepts of Spring Cloud Stream and showed how to use it with Kafka.
-Also JUnit testing based on EmbeddedKafkaRule with using MessageCollector.
+And demonstrated using complete JUnit testing based on EmbeddedKafkaRule with using MessageCollector.
 
 You can find the complete source code here:
-<input myOpenGitHub Link>
+https://github.com/Vito89/cloud-stream-binding-kafka-app
 
 *************************
 https://www.baeldung.com/spring-cloud-stream
