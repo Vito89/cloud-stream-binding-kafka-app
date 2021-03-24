@@ -7,7 +7,6 @@ import com.vito.spring.examples.kafka.streams.service.MessageService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.ClassRule
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,7 +26,7 @@ import org.springframework.test.context.ActiveProfiles
 class ConsumerTest {
 
     @Autowired
-    lateinit var producer: ProducerBinding
+    lateinit var producerBinding: ProducerBinding
 
     @Autowired
     lateinit var objectMapper: ObjectMapper
@@ -38,18 +37,13 @@ class ConsumerTest {
     companion object {
         @ClassRule @JvmField
         var embeddedKafka = EmbeddedKafkaRule(1, true, "any-name-of-topic")
-
-        @BeforeEach
-        fun beforeEach() {
-            System.setProperty("spring.cloud.stream.kafka.binder.brokers", embeddedKafka.embeddedKafka.brokersAsString)
-        }
     }
 
     @Test
     fun `should consume via txConsumer process`() {
         // ACT
         val request = mapOf(1 to "foo", 2 to "bar")
-        producer.messageChannel().send(MessageBuilder.withPayload(request)
+        producerBinding.messageChannel().send(MessageBuilder.withPayload(request)
             .setHeader("someHeaderName", "someHeaderValue")
             .build())
 
