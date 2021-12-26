@@ -46,7 +46,7 @@ The rule starts the Kafka and Zookeeper servers on a random port before start th
 <input code ConsumerTest.kt>
 
 5. Conclusion
-In this tutorial demonstreted concepts of Spring Cloud Stream and showed how to use it with Kafka.
+In this tutorial demonstrated concepts of Spring Cloud Stream and showed how to use it with Kafka.
 And demonstrated using complete JUnit testing based on EmbeddedKafkaRule with using MessageCollector.
 
 You can find the complete source code here:
@@ -63,3 +63,4 @@ Nakul Shukla:
 https://dzone.com/articles/kafka-with-spring-cloud-stream
 https://medium.com/@njns08/test-spring-boot-applications-using-embeddedkafka-and-awaitility-875aaecde5d0
 
+https://codenotfound.com/spring-kafka-embedded-unit-test-example.html
