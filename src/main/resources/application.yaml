@@ -10,7 +10,7 @@ spring:
             auto-offset-reset: latest
       bindings:
         customChannel:                   #Channel name
-          destination: 0.0.0.0:8080      #Destination to which the message is sent (topic)
+          destination: name-of-topic     #Destination to which the message is sent (topic)
           group: input-group-N
           contentType: application/json
           consumer:
