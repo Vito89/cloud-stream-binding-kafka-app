@@ -20,7 +20,7 @@ class ProducerTest {
     @Test
     fun `should produce somePayload to channel`() {
         // ARRANGE
-        val request = mapOf(1 to "foo", 2 to "bar", "three" to 10101)
+        val request = mapOf(1 to "foo", true to "bar", "three" to 10101, -123.456 to null)
 
         // ACT
         producerBinding.messageChannel().send(MessageBuilder.withPayload(request).build())
