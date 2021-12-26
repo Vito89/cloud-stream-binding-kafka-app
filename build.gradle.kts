@@ -28,14 +28,6 @@ repositories {
     maven { url = uri("https://packages.confluent.io/maven/") }
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
-        mavenBom("org.testcontainers:testcontainers-bom:$testContainersVersion")
-    }
-}
-
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
